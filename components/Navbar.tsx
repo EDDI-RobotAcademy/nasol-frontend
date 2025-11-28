@@ -18,6 +18,14 @@ export default function Navbar() {
         router.push("/");
     };
 
+    const handleSessionOut = () => {
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/account/session_out`,
+            {method: "DELETE",
+                credentials: "include"
+            }).then(r => r);
+        router.push("/");
+    };
+
     return (
         <nav className="bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,6 +86,12 @@ export default function Navbar() {
                                             className="block px-4 py-3 text-sm hover:bg-green-600 transition-colors duration-200 border-t border-gray-700"
                                         >
                                             💸 연말정산 공제 내역 확인
+                                        </Link>
+                                        <Link
+                                            href="/financial_guide"
+                                            className="block px-4 py-3 text-sm hover:bg-green-600 transition-colors duration-200 border-t border-gray-700"
+                                        >
+                                            🤓 목표 금액 재무 가이드
                                         </Link>
                                     </div>
                                 </div>
@@ -145,18 +159,24 @@ export default function Navbar() {
                                 🔐 Login
                             </Link>
                         )}
+                        <button
+                            onClick={handleSessionOut}
+                            className="px-4 py-2 rounded-lg text-sm font-medium bg-red-600 hover:bg-red-700 hover:shadow-lg transition-all duration-200 hover:scale-105 active:scale-95"
+                        >
+                            🚪 세션 삭제
+                        </button>
                     </div>
                 </div>
 
                 {/* 모바일 메뉴 */}
                 <div className="md:hidden pb-4 space-y-2">
                     <Link
-                        href="/flow" 
+                        href="/flow"
                         className="block px-4 py-2 rounded-lg text-sm font-medium bg-gray-700/50 hover:bg-blue-600 transition-all duration-200"
                     >
                         📤 Upload
                     </Link>
-                    
+
                     {/* 모바일 자료 분석 드롭다운 */}
                     <div>
                         <button
@@ -190,6 +210,13 @@ export default function Navbar() {
                                     onClick={() => setIsMobileAnalysisOpen(false)}
                                 >
                                     💸 연말정산 공제 내역 확인
+                                </Link>
+                                <Link
+                                    href="/financial_guide"
+                                    className="block px-4 py-2 rounded-lg text-sm font-medium bg-gray-700/50 hover:bg-green-600 transition-all duration-200"
+                                    onClick={() => setIsMobileAnalysisOpen(false)}
+                                >
+                                    🤓 목표 금액 재무 가이드
                                 </Link>
                             </div>
                         )}
